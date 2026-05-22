@@ -2,6 +2,7 @@ if object_id('[dynamic_pricing]', 'U') is not null
 	drop table [dynamic_pricing]
 create table [dynamic_pricing]
 (
+primary_key INT IDENTITY(1,1) NOT NULL,
 Number_of_request int,
 Number_of_Drivers int,
 Location_Category varchar(50),
