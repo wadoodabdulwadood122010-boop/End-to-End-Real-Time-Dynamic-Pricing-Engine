@@ -44,7 +44,7 @@ def preprocessing(df):
     encoder = LabelEncoder()
     for i in cols_to_encode:
         df[i] = encoder.fit_transform(df[i].astype(str))
-        return df
+    return df
 
 
 
