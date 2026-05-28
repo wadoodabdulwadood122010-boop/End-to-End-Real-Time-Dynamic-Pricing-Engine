@@ -3,7 +3,7 @@ import os
 # for outside cicd
 from dotenv import load_dotenv
 load_dotenv()
-from src.connections import s3_connection
+
 from src.Variables.variables import RAW_DATA_PATH, INTERIM_DATA_PATH
 from sklearn.preprocessing import LabelEncoder
 
