@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 from src.connections import s3_connection
+from src.Variables.variables import RAW_DATA_PATH, INTERIM_DATA_PATH
 from sklearn.preprocessing import LabelEncoder
 
 
@@ -17,8 +18,6 @@ Secret_access_key = os.getenv("Secret_access_key")
 
 
 
-RAW_DATA_PATH = r'C:\mlops\End-to-End-Real-Time-Dynamic-Pricing-Engine\data\raw\raw.csv'
-INTERIM_DATA_PATH = r'C:\mlops\End-to-End-Real-Time-Dynamic-Pricing-Engine\data\interim\interim.csv'
 
 
 
