@@ -4,24 +4,38 @@ import joblib
 import mlflow
 import mlflow.sklearn
 import dagshub
+from pathlib import Path
 from mlflow.tracking import MlflowClient
 
 # ==========================================
 # 1. DAGSHUB & CONFIGURATION SETUP
 # ==========================================
-dagshub.init(
-    repo_owner='wadoodabdulwadood122010', 
-    repo_name='End-to-End-Real-Time-Dynamic-Pricing-Engine', 
-    mlflow=True
-)
+# Use environment variables if they exist (crucial for CI/CD), otherwise fallback to init()
+DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN")
+REPO_OWNER = 'wadoodabdulwadood122010'
+REPO_NAME = 'End-to-End-Real-Time-Dynamic-Pricing-Engine'
 
-LOCAL_MODEL_PATH = r"c:\mlops\End-to-End-Real-Time-Dynamic-Pricing-Engine\model\model.pkl" 
-LOCAL_MLFLOW_DIR = "temp_mlflow_model" # We will use this to fix the Windows bug
+if DAGSHUB_TOKEN:
+    # Headless authentication for GitHub Actions CI/CD
+    os.environ["MLFLOW_TRACKING_USERNAME"] = REPO_OWNER
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = DAGSHUB_TOKEN
+    mlflow.set_tracking_uri(f"https://dagshub.com/{REPO_OWNER}/{REPO_NAME}.mlflow")
+else:
+    # Interactive / Cached token login for local Windows environment
+    dagshub.init(
+        repo_owner=REPO_OWNER, 
+        repo_name=REPO_NAME, 
+        mlflow=True
+    )
+
+# OS-agnostic paths using pathlib
+LOCAL_MODEL_PATH = Path("./model/model.pkl").resolve()
+LOCAL_MLFLOW_DIR = Path("./temp_mlflow_model").resolve() 
 REGISTRY_MODEL_NAME = "Dynamic_Pricing_Engine"
 
 
 def main():
-    if not os.path.exists(LOCAL_MODEL_PATH):
+    if not LOCAL_MODEL_PATH.exists():
         raise FileNotFoundError(f"❌ Could not find local model at: {LOCAL_MODEL_PATH}")
 
     tracking_uri = mlflow.get_tracking_uri()
@@ -35,13 +49,13 @@ def main():
     model = joblib.load(LOCAL_MODEL_PATH)
 
     # Clean up the temp directory if it exists from a previous run
-    if os.path.exists(LOCAL_MLFLOW_DIR):
+    if LOCAL_MLFLOW_DIR.exists():
         shutil.rmtree(LOCAL_MLFLOW_DIR)
 
-    print("🛠️ Structuring model locally to bypass Windows pathing issues...")
+    print("🛠️ Structuring model locally to bypass pathing issues...")
     mlflow.sklearn.save_model(
         sk_model=model, 
-        path=LOCAL_MLFLOW_DIR,
+        path=str(LOCAL_MLFLOW_DIR), # MLflow requires a string representation of the path
         serialization_format="pickle"
     )
 
@@ -53,11 +67,9 @@ def main():
         run_id = run.info.run_id
         
         print("📤 Uploading local model folder to DagsHub...")
-        # log_artifacts forces a clean upload of the directory contents
-        mlflow.log_artifacts(local_dir=LOCAL_MLFLOW_DIR, artifact_path="model")
+        mlflow.log_artifacts(local_dir=str(LOCAL_MLFLOW_DIR), artifact_path="model")
         
         # --- VERIFICATION STEP ---
-        # Let's check what DagsHub actually received
         artifacts = client.list_artifacts(run_id, path="model")
         uploaded_files = [a.path for a in artifacts]
         print(f"🔎 Files successfully received by DagsHub: {uploaded_files}")
@@ -96,7 +108,7 @@ def main():
         print(f"\n🎉 Success! Your model is now live on DagsHub in the STAGING environment.")
         
         # Clean up the temp folder so your workspace stays clean
-        if os.path.exists(LOCAL_MLFLOW_DIR):
+        if LOCAL_MLFLOW_DIR.exists():
             shutil.rmtree(LOCAL_MLFLOW_DIR)
             
     except Exception as e:
