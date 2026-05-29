@@ -10,8 +10,6 @@ import dagshub
 import os
 import joblib
 
-# Configure logging so you can see the info/debug logs in your console
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Below code block is for local use
 # -------------------------------------------------------------------------------------
