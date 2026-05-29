@@ -48,6 +48,10 @@ def preprocessing(df):
 
 
 def main():
+    output_dir = os.path.dirname(RAW_DATA_PATH)
+    os.makedirs(output_dir, exist_ok=True)
+    output_dir2 = os.path.dirname(INTERIM_DATA_PATH)
+    os.makedirs(output_dir2, exist_ok=True)
     print('✅ Pulling data from S3')
     df = data_ingestion('s3://dynamic--pricing/dynamic_pricing.csv', 'C:\mlops\End-to-End-Real-Time-Dynamic-Pricing-Engine\data')
     df.to_csv(RAW_DATA_PATH)
