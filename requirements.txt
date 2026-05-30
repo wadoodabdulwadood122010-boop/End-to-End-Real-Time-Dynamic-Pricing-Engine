@@ -5,3 +5,4 @@ joblib
 python-dotenv
 mlflow
 dagshub
+dvc
