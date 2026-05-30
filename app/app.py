@@ -21,7 +21,8 @@ STAGE = "Staging"
 
 print("✅ Loading local mathematical states & pulling staging model...")
 try:
-    model = mlflow.pyfunc.load_model(f"models:/{MODEL_NAME}/{STAGE}")
+    #model = mlflow.pyfunc.load_model(f"models:/{MODEL_NAME}/{STAGE}")
+    model  = joblib.load("model/model.pkl")
     # Loading the artifacts created by generate_artifacts.py
     encoders = joblib.load("artifacts/label_encoders.pkl")
     transformer = joblib.load("artifacts/power_transformer.pkl")

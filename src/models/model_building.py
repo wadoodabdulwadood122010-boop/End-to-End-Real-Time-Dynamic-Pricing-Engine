@@ -43,6 +43,8 @@ def main():
     df = load_data(PROCESSED_DATA_PATH)
     print('✅ spliting Data')
     x_train, x_test, y_train,y_test = splting_data(df, test_size, random_state, SPLITED_DATA_PATH)
+    x_train.drop(columns=['Unnamed: 0'], inplace = True)
+    y_train.drop(columns=['Unnamed: 0'], inplace = True)
     print('✅ building model')
     model = build_model(x_train, y_train, n_estimators, Random_state)
     print('✅ Saving model')
