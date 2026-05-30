@@ -9,12 +9,27 @@ import mlflow.sklearn
 import dagshub
 import os
 import joblib
+from dotenv import load_dotenv
+load_dotenv()
 
+
+dagshub_token = os.getenv("DAGSHUB_TOCKEN")
+if not dagshub_token:
+    raise EnvironmentError("DAGSHUB_TOCKEN environment variable is not set")
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
+dagshub_url = "https://dagshub.com"
+repo_owner = "wadoodabdulwadood122010"
+repo_name = "End-to-End-Real-Time-Dynamic-Pricing-Engine"
+# Set up MLflow tracking URI
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 
 # Below code block is for local use
 # -------------------------------------------------------------------------------------
-mlflow.set_tracking_uri('https://dagshub.com/wadoodabdulwadood122010/End-to-End-Real-Time-Dynamic-Pricing-Engine.mlflow')
-dagshub.init(repo_owner='wadoodabdulwadood122010', repo_name='End-to-End-Real-Time-Dynamic-Pricing-Engine', mlflow=True)
+#mlflow.set_tracking_uri('https://dagshub.com/wadoodabdulwadood122010/End-to-End-Real-Time-Dynamic-Pricing-Engine.mlflow')
+#dagshub.init(repo_owner='wadoodabdulwadood122010', repo_name='End-to-End-Real-Time-Dynamic-Pricing-Engine', mlflow=True)
 mlflow.set_experiment('MODEL_EVALUTION')
 # -------------------------------------------------------------------------------------
 

@@ -6,27 +6,31 @@ import mlflow.sklearn
 import dagshub
 from pathlib import Path
 from mlflow.tracking import MlflowClient
-
+from dotenv import load_dotenv
+load_dotenv()
 # ==========================================
 # 1. DAGSHUB & CONFIGURATION SETUP
 # ==========================================
 # Use environment variables if they exist (crucial for CI/CD), otherwise fallback to init()
-DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN")
-REPO_OWNER = 'wadoodabdulwadood122010'
-REPO_NAME = 'End-to-End-Real-Time-Dynamic-Pricing-Engine'
+dagshub_token = os.getenv("DAGSHUB_TOCKEN")
+if not dagshub_token:
+    raise EnvironmentError("DAGSHUB_TOCKEN environment variable is not set")
 
-if DAGSHUB_TOKEN:
-    # Headless authentication for GitHub Actions CI/CD
-    os.environ["MLFLOW_TRACKING_USERNAME"] = REPO_OWNER
-    os.environ["MLFLOW_TRACKING_PASSWORD"] = DAGSHUB_TOKEN
-    mlflow.set_tracking_uri(f"https://dagshub.com/{REPO_OWNER}/{REPO_NAME}.mlflow")
-else:
-    # Interactive / Cached token login for local Windows environment
-    dagshub.init(
-        repo_owner=REPO_OWNER, 
-        repo_name=REPO_NAME, 
-        mlflow=True
-    )
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
+dagshub_url = "https://dagshub.com"
+repo_owner = "wadoodabdulwadood122010"
+repo_name = "End-to-End-Real-Time-Dynamic-Pricing-Engine"
+# Set up MLflow tracking URI
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+
+# Below code block is for local use
+# -------------------------------------------------------------------------------------
+#mlflow.set_tracking_uri('https://dagshub.com/wadoodabdulwadood122010/End-to-End-Real-Time-Dynamic-Pricing-Engine.mlflow')
+#dagshub.init(repo_owner='wadoodabdulwadood122010', repo_name='End-to-End-Real-Time-Dynamic-Pricing-Engine', mlflow=True)
+
+# -------------------------------------------------------------------------------------
 
 # OS-agnostic paths using pathlib
 LOCAL_MODEL_PATH = Path("./model/model.pkl").resolve()
