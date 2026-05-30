@@ -19,10 +19,10 @@ def splting_data(df, Test_size, Random_state,  path):
     os.makedirs(path, exist_ok=True)
     
     # 2. Save the files safely using os.path.join
-    x_train.to_csv(os.path.join(path, 'x_train.csv'), index=False)
-    x_test.to_csv(os.path.join(path, 'x_test.csv'), index=False)
-    y_train.to_csv(os.path.join(path, 'y_train.csv'), index=False)
-    y_test.to_csv(os.path.join(path, 'y_test.csv'), index=False)
+    x_train.drop(columns=['Unnamed: 0']).to_csv(os.path.join(path, 'x_train.csv'), index=False)
+    x_test.drop(columns=['Unnamed: 0']).to_csv(os.path.join(path, 'x_test.csv'), index=False)
+    y_train.drop(columns=['Unnamed: 0']).to_csv(os.path.join(path, 'y_train.csv'), index=False)
+    y_test.drop(columns=['Unnamed: 0']).to_csv(os.path.join(path, 'y_test.csv'), index=False)
     return x_train, x_test, y_train,y_test 
 
 def build_model(x_train, y_train, N_estimator, RAndom_state):
