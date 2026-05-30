@@ -8,3 +8,5 @@ dagshub
 dvc
 pathlib
 s3fs
+awscli
+docker

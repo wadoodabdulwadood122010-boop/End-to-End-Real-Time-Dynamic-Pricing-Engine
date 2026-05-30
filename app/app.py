@@ -32,12 +32,12 @@ mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 #dagshub.init(repo_owner='wadoodabdulwadood122010', repo_name='End-to-End-Real-Time-Dynamic-Pricing-Engine', mlflow=True)
 # -------------------------------------------------------------------------------------
 MODEL_NAME = "Dynamic_Pricing_Engine" 
-STAGE = "Staging"
+STAGE = "Production"
 
 print("✅ Loading local mathematical states & pulling staging model...")
 try:
-    #model = mlflow.pyfunc.load_model(f"models:/{MODEL_NAME}/{STAGE}")
-    model  = joblib.load("model/model.pkl")
+    model = mlflow.pyfunc.load_model(f"models:/{MODEL_NAME}/{STAGE}")
+    #model  = joblib.load("model/model.pkl")
     # Loading the artifacts created by generate_artifacts.py
     encoders = joblib.load("artifacts/label_encoders.pkl")
     transformer = joblib.load("artifacts/power_transformer.pkl")
