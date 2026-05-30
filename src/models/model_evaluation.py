@@ -1,9 +1,7 @@
 import numpy as np
 import pandas as pd
-import pickle
 import json
 from sklearn.metrics import r2_score,mean_absolute_error,mean_squared_error
-import logging
 import mlflow
 import mlflow.sklearn
 import dagshub
@@ -41,7 +39,6 @@ def load_model(file_path: str):
 
 def load_data(file_path: str) -> pd.DataFrame:
     df = pd.read_csv(file_path)
-    logging.info('Data loaded from %s', file_path)
     return df
 
 
@@ -69,7 +66,6 @@ def save_metrics(metrics: dict, file_path: str) -> None:
     # FIXED: Changed 'wb' to 'w' because json.dump handles text, not raw bytes
     with open(file_path, 'w') as file:
         json.dump(metrics, file, indent=4)
-    logging.info('Metrics saved to %s', file_path)
 
 
 def save_model_info(run_id: str, model_path: str, file_path: str) -> None:
@@ -79,7 +75,6 @@ def save_model_info(run_id: str, model_path: str, file_path: str) -> None:
     model_info = {'run_id': run_id, 'model_path': model_path}
     with open(file_path, 'w') as file:
         json.dump(model_info, file, indent=4)
-    logging.info('Model info saved to %s', file_path)
 
 
 def main():
