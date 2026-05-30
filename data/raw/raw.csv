@@ -69,7 +69,7 @@
 67,76,40,Suburban,Silver,77,4.17,Morning,Economy,28,96.03520852
 68,41,26,Urban,Regular,96,3.91,Night,Economy,169,637.7593916
 69,83,14,Urban,Regular,80,4.77,Night,Premium,64,295.588711
-70,44,17,Rural,Regular,15,4.0,Evening,Economy,98,353.3385451
+70,44,17,Rural,Regular,15,4,Evening,Economy,98,353.3385451
 71,91,73,Urban,Gold,61,4.39,Night,Economy,15,62.25429042
 72,54,16,Suburban,Regular,8,4.5,Afternoon,Premium,67,266.0685899
 73,59,37,Rural,Silver,86,4.67,Night,Premium,95,340.1282671
@@ -123,7 +123,7 @@
 121,36,13,Rural,Silver,31,4.71,Night,Economy,71,221.5511001
 122,28,18,Suburban,Regular,100,3.7,Afternoon,Economy,127,531.112701
 123,21,9,Urban,Gold,10,3.88,Morning,Premium,108,324.9426389
-124,26,15,Urban,Regular,35,5.0,Morning,Premium,161,493.4068923
+124,26,15,Urban,Regular,35,5,Morning,Premium,161,493.4068923
 125,97,21,Suburban,Regular,59,3.87,Evening,Premium,174,778.633356
 126,26,15,Urban,Silver,10,3.71,Morning,Premium,171,720.1572086
 127,91,56,Urban,Gold,17,4.66,Night,Economy,10,38.23523524
@@ -225,7 +225,7 @@
 223,41,7,Rural,Gold,68,4.3,Evening,Premium,66,284.5088586
 224,79,23,Urban,Gold,88,3.88,Night,Economy,164,492.1134584
 225,53,7,Urban,Silver,64,4.55,Night,Premium,10,86.19117981
-226,35,14,Urban,Silver,74,5.0,Night,Premium,175,727.8809448
+226,35,14,Urban,Silver,74,5,Night,Premium,175,727.8809448
 227,53,40,Rural,Gold,79,3.66,Evening,Premium,30,158.6526416
 228,36,23,Urban,Silver,42,4.66,Morning,Economy,14,44.52503661
 229,38,25,Urban,Regular,2,4.24,Morning,Premium,128,452.4258269
@@ -240,7 +240,7 @@
 238,100,22,Suburban,Silver,45,4.23,Night,Premium,141,551.3651376
 239,73,63,Suburban,Silver,25,4.19,Afternoon,Economy,129,534.0181946
 240,79,67,Rural,Gold,56,4.01,Evening,Premium,151,501.2363001
-241,88,55,Rural,Regular,56,4.0,Night,Premium,26,159.6069186
+241,88,55,Rural,Regular,56,4,Night,Premium,26,159.6069186
 242,76,34,Suburban,Silver,10,4.92,Morning,Economy,103,359.801051
 243,49,30,Suburban,Silver,80,3.74,Night,Economy,85,348.6695625
 244,100,64,Rural,Regular,7,4.89,Night,Premium,115,490.504076
@@ -667,9 +667,9 @@
 665,79,13,Rural,Gold,67,4.05,Evening,Premium,151,514.9363492
 666,38,22,Suburban,Regular,18,4.17,Night,Premium,121,450.5387531
 667,83,41,Suburban,Silver,48,3.64,Evening,Economy,176,741.3443926
-668,59,24,Suburban,Regular,40,4.0,Afternoon,Premium,147,631.631297
+668,59,24,Suburban,Regular,40,4,Afternoon,Premium,147,631.631297
 669,51,11,Suburban,Regular,72,3.62,Afternoon,Economy,16,71.21364105
-670,64,46,Rural,Silver,51,5.0,Evening,Premium,29,144.6013825
+670,64,46,Rural,Silver,51,5,Evening,Premium,29,144.6013825
 671,30,6,Rural,Regular,93,3.81,Evening,Economy,129,505.9219688
 672,60,15,Suburban,Regular,95,4.84,Afternoon,Economy,180,726.3339146
 673,75,51,Rural,Regular,17,4.83,Afternoon,Premium,79,283.4132788
@@ -778,7 +778,7 @@
 776,53,40,Urban,Regular,13,3.79,Night,Economy,118,318.2115758
 777,26,11,Urban,Regular,97,3.64,Morning,Economy,141,427.0550612
 778,100,46,Suburban,Gold,74,3.74,Afternoon,Economy,171,448.3128535
-779,74,38,Urban,Regular,95,5.0,Evening,Economy,167,455.4083399
+779,74,38,Urban,Regular,95,5,Evening,Economy,167,455.4083399
 780,53,5,Rural,Gold,100,4.46,Night,Premium,33,179.1708197
 781,75,63,Urban,Gold,24,4.18,Afternoon,Economy,29,104.1858826
 782,44,9,Suburban,Regular,54,4.2,Morning,Premium,13,91.67748869
@@ -786,7 +786,7 @@
 784,88,18,Suburban,Silver,80,4.83,Evening,Economy,109,424.6569323
 785,54,35,Rural,Gold,95,4.98,Evening,Premium,61,218.9504185
 786,49,30,Urban,Regular,7,3.97,Afternoon,Premium,77,248.1703336
-787,25,8,Urban,Silver,11,4.0,Afternoon,Economy,109,422.4367392
+787,25,8,Urban,Silver,11,4,Afternoon,Economy,109,422.4367392
 788,36,18,Suburban,Gold,15,4.21,Afternoon,Economy,86,280.5240757
 789,42,25,Suburban,Silver,44,4.99,Morning,Premium,122,565.9834811
 790,29,14,Rural,Gold,2,4.69,Night,Premium,180,828.2131346

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Pricing Engine</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex items-center justify-center p-6">
 
@@ -16,16 +16,6 @@
 
         <form id="pricingForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            <div>
-                <label class="block text-sm font-medium text-slate-300 mb-2">Number of Riders</label>
-                <input type="number" name="Number_of_Riders" value="90" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-slate-300 mb-2">Number of Drivers</label>
-                <input type="number" name="Number_of_Drivers" value="45" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
-            </div>
-
             <div>
                 <label class="block text-sm font-medium text-slate-300 mb-2">Number of Past Rides</label>
                 <input type="number" name="Number_of_Past_Rides" value="13" required class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
@@ -69,7 +59,7 @@
                 </select>
             </div>
 
-            <div>
+            <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-slate-300 mb-2">Vehicle Type</label>
                 <select name="Vehicle_Type" class="w-full bg-slate-950 border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
                     <option value="Premium">Premium</option>
@@ -77,32 +67,44 @@
                 </select>
             </div>
 
-            <div class="md:col-span-2 mt-4">
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 cursor-pointer shadow-md">
-                    Calculate Predicted Ride Cost
-                </button>
+            <div class="mt-4">
+                <div class="flex justify-between mb-2">
+                    <label class="block text-sm font-medium text-slate-300">Number of Riders</label>
+                    <span id="ridersLabel" class="text-sm font-bold text-indigo-400">90</span>
+                </div>
+                <input type="range" name="Number_of_Riders" min="1" max="500" value="90" 
+                       oninput="document.getElementById('ridersLabel').innerText = this.value"
+                       class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
             </div>
+
+            <div class="mt-4">
+                <div class="flex justify-between mb-2">
+                    <label class="block text-sm font-medium text-slate-300">Number of Drivers</label>
+                    <span id="driversLabel" class="text-sm font-bold text-indigo-400">45</span>
+                </div>
+                <input type="range" name="Number_of_Drivers" min="1" max="500" value="45" 
+                       oninput="document.getElementById('driversLabel').innerText = this.value"
+                       class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+            </div>
+
         </form>
 
-        <div id="resultBox" class="hidden mt-8 p-6 bg-slate-900 border border-emerald-500/30 rounded-xl transition duration-300">
+        <div id="resultBox" class="mt-8 p-6 bg-slate-900 border border-emerald-500/40 rounded-xl transition duration-300">
             <p class="text-sm text-slate-400 font-medium uppercase tracking-wider">Estimated Historical Cost</p>
-            <h2 id="costOutput" class="text-4xl font-black text-emerald-400 mt-1">$0.00</h2>
+            <h2 id="costOutput" class="text-4xl font-black text-emerald-400 mt-1">Calculating...</h2>
         </div>
     </div>
 
     <script>
-        document.getElementById('pricingForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Collect form entries into a JSON object
-            const formData = new FormData(e.target);
+        const form = document.getElementById('pricingForm');
+        const costOutput = document.getElementById('costOutput');
+
+        // Function to handle the prediction fetch
+        async function fetchPrediction() {
+            const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
-            
-            const resultBox = document.getElementById('resultBox');
-            const costOutput = document.getElementById('costOutput');
 
             try {
-                // Post to our Flask backend route
                 const response = await fetch('/predict', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -113,16 +115,21 @@
 
                 if (result.status === 'success') {
                     costOutput.innerText = `$${result.predicted_historical_cost}`;
-                    resultBox.classList.remove('hidden');
-                    resultBox.className = "mt-8 p-6 bg-slate-900 border border-emerald-500/40 rounded-xl";
                 } else {
-                    alert("Error processing inference: " + result.message);
+                    console.error("Error processing inference: " + result.message);
+                    costOutput.innerText = "Error";
                 }
             } catch (err) {
-                alert("Could not reach prediction endpoint.");
-                console.error(err);
+                console.error("Could not reach prediction endpoint.", err);
+                costOutput.innerText = "Connection Failed";
             }
-        });
+        }
+
+        // Trigger prediction whenever any input changes
+        form.addEventListener('input', fetchPrediction);
+
+        // Run an initial calculation when the page loads
+        document.addEventListener('DOMContentLoaded', fetchPrediction);
     </script>
 </body>
 </html>
