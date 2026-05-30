@@ -2,5 +2,5 @@
 RAW_DATA_PATH = 'data/raw/raw.csv'
 INTERIM_DATA_PATH = 'data/interim/interim.csv'
 PROCESSED_DATA_PATH = 'data/processed/processed.csv'
-SPLIT_DATA_PATH = 'data/processed/split_data'
+SPLIT_DATA_PATH = 'data/processed/splited_data'
 MODEL_PATH = 'model/model.pkl'
