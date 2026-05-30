@@ -7,3 +7,4 @@ mlflow
 dagshub
 dvc
 pathlib
+s3fs
