@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: 319391036334.dkr.ecr.us-east-1.amazonaws.com/dynamic-pricing-project-ecr-repo:latest
+        image: 319391036334.dkr.ecr.us-east-1.amazonaws.com/dynamic-pricing-project-ecr-repo:V3
         ports:
         - containerPort: 5000
         resources:
