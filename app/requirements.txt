@@ -8,3 +8,4 @@ python-dotenv
 scikit-learn==1.8.0
 joblib
 gunicorn
+prometheus-client
