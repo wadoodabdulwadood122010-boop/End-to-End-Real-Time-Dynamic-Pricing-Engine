@@ -31,7 +31,7 @@ jobs:
         env:
           DAGSHUB_TOCKEN: ${{ secrets.DAGSHUB_TOCKEN }}
           Secret_access_key: ${{ secrets.Secret_access_key }}
-          DAGSHUB_TOCKEN: ${{ secrets.DAGSHUB_TOCKEN }}
+          Access_key: ${{ secrets.Access_key }}
         run: |
           dvc repro
 
