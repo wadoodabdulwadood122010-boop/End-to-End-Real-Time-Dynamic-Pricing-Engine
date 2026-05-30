@@ -33,6 +33,9 @@ jobs:
           Secret_access_key: ${{ secrets.Secret_access_key }}
           Access_key: ${{ secrets.Access_key }}
         run: |
+          git rm -r --cached 'data/'
+          git rm -r --cached 'model/'
+          git rm -r --cached 'reports/'
           dvc repro
 
       
