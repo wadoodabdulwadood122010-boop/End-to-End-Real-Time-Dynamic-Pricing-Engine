@@ -6,3 +6,4 @@ python-dotenv
 mlflow
 dagshub
 dvc
+pathlib
