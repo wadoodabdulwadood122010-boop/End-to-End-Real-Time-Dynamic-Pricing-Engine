@@ -30,6 +30,8 @@ jobs:
       - name: run pipeline
         env:
           DAGSHUB_TOCKEN: ${{ secrets.DAGSHUB_TOCKEN }}
+          Secret_access_key: ${{ secrets.Secret_access_key }}
+          DAGSHUB_TOCKEN: ${{ secrets.DAGSHUB_TOCKEN }}
         run: |
           dvc repro
 
